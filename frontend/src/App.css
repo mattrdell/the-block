@@ -1,0 +1,275 @@
+﻿.app-shell {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 1.4rem;
+  color: #eef3ff;
+}
+
+header h1 {
+  margin: 0;
+  font-family: 'Chakra Petch', 'Manrope', sans-serif;
+  font-size: clamp(1.9rem, 3vw, 2.9rem);
+}
+
+header p {
+  margin-top: 0.35rem;
+  color: #c5d6f5;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.72rem;
+  color: #6dc4ff;
+  margin: 0 0 0.5rem;
+}
+
+.toolbar {
+  margin-top: 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.toolbar input,
+.toolbar select,
+.bid-form input,
+.bid-form button {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  padding: 0.7rem 0.8rem;
+  font: inherit;
+}
+
+.toolbar input,
+.toolbar select,
+.bid-form input {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8f9ff;
+}
+
+.toolbar option {
+  color: #0c1220;
+}
+
+.status {
+  margin: 1rem 0;
+}
+
+.status.error {
+  color: #ff9f9f;
+}
+
+.layout {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.vehicle-card {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, rgba(15, 34, 47, 0.84), rgba(26, 21, 37, 0.86));
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 120ms ease, border-color 120ms ease;
+  cursor: pointer;
+}
+
+.vehicle-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(109, 196, 255, 0.95);
+}
+
+.vehicle-card.selected {
+  border-color: #ff8d5f;
+  box-shadow: 0 0 0 1px #ff8d5f;
+}
+
+.card-image {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 0.85rem;
+}
+
+.card-body h3 {
+  margin: 0.25rem 0;
+  font-size: 1rem;
+}
+
+.card-body p {
+  margin: 0;
+  color: #c6d6f4;
+}
+
+.card-lot {
+  color: #88c9ff;
+  font-size: 0.82rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.65rem;
+  font-weight: 700;
+}
+
+.detail-panel {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(14, 26, 38, 0.88), rgba(33, 23, 49, 0.88));
+}
+
+.detail-panel.empty {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  color: #c5d6f5;
+}
+
+.hero-photo {
+  width: 100%;
+  height: 225px;
+  object-fit: cover;
+}
+
+.detail-content {
+  padding: 1rem;
+}
+
+.lot-badge {
+  display: inline-block;
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(109, 196, 255, 0.15);
+  color: #96d2ff;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+}
+
+.detail-content h2 {
+  margin: 0.45rem 0;
+  font-family: 'Chakra Petch', 'Manrope', sans-serif;
+  font-size: 1.55rem;
+}
+
+.dealership {
+  margin: 0;
+  color: #bfd7fb;
+}
+
+.spec-grid {
+  margin: 1rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.spec-grid div {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 0.55rem 0.65rem;
+}
+
+.spec-grid dt {
+  color: #98b7e8;
+  font-size: 0.8rem;
+}
+
+.spec-grid dd {
+  margin: 0.15rem 0 0;
+  font-weight: 700;
+}
+
+.damage-list {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.bid-form {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.95rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.bid-form h3,
+.bid-form p {
+  margin: 0;
+}
+
+.bid-form button {
+  background: linear-gradient(120deg, #ff8d5f, #ff5d57);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bid-form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form-error {
+  color: #ffaaaa;
+  margin: 0;
+}
+
+.form-success {
+  color: #8ff0b2;
+  margin: 0;
+}
+
+.empty-state {
+  margin: 1.2rem 0;
+  color: #c6d6f4;
+}
+
+@media (max-width: 1020px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spec-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

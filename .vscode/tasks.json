@@ -1,0 +1,98 @@
+﻿{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Frontend",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Install All",
+      "dependsOn": [
+        "Install Frontend"
+      ],
+      "dependsOrder": "sequence"
+    },
+    {
+      "label": "Launch Backend",
+      "type": "shell",
+      "command": "dotnet run --launch-profile \"http\"",
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Now listening on"
+        }
+      }
+    },
+    {
+      "label": "Launch Frontend",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": "^(.*)$",
+          "message": 1
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": ".*",
+          "endsPattern": "Local:"
+        }
+      }
+    },
+    {
+      "label": "Launch All",
+      "dependsOn": [
+        "Launch Backend",
+        "Launch Frontend"
+      ],
+      "dependsOrder": "parallel"
+    },
+    {
+      "label": "Test Backend",
+      "type": "shell",
+      "command": "dotnet test",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Test Frontend",
+      "type": "shell",
+      "command": "npm run test:run",
+      "options": {
+        "cwd": "${workspaceFolder}/frontend"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Run All Tests",
+      "dependsOn": [
+        "Test Backend",
+        "Test Frontend"
+      ],
+      "dependsOrder": "parallel"
+    }
+  ]
+}
+
