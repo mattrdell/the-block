@@ -2,39 +2,36 @@
 
 A full-stack prototype for the OPENLANE "The Block" challenge.
 
-This implementation follows the same technical decisions used in `mattrdell/taskmanager2025`:
-- ASP.NET Core backend with a clear controller + service layer
-- EF Core InMemory data store for a fast prototype loop
+This implementation intentionally mirrors technical decisions from `mattrdell/taskmanager2025`:
+- ASP.NET Core API with controller + service separation
+- EF Core InMemory storage for a fast prototype loop
 - React + Vite frontend
-- Zod response validation in the UI
-- Accessibility-minded controls and semantic HTML
-- Basic automated tests for backend and frontend
-- VS Code tasks for setup, launch, and test workflows
+- Zod validation of API responses in UI code
+- Automated tests and repeatable local/CI workflows
 
-## What I Built
+## What It Does
 
-- Inventory browsing with card-based listing
+- Browse inventory from the provided 200-vehicle dataset
 - Search by make, model, VIN, lot, and dealership
-- Filtering by make and province
-- Sorting by auction timing, price, and condition grade
-- Vehicle detail experience with specs, condition, damage notes, and dealership info
-- Bid placement flow with server-side bid validation and live UI updates
+- Filter by make and province
+- Sort by auction timing, current bid, and condition grade
+- Inspect detailed vehicle info (specs, condition, damage, dealership)
+- Place bids with server-side rules and immediate UI updates
 
-## Architecture
+## Project Documents
 
-### Backend (`backend/`)
-- `Controllers/VehiclesController.cs`: browse, detail, and bid endpoints
-- `Services/VehiclesService.cs`: query logic and bidding rules
-- `Data/VehiclesContext.cs`: EF Core context (in-memory)
-- `Data/VehicleDataSeeder.cs`: loads `data/vehicles.json` at startup
-- `Models/`: request and vehicle domain models
+- Build plan: `Plan.md`
+- System design: `Architecture.md`
+- Runtime/automation roles: `Agents.md`
 
-### Frontend (`frontend/`)
-- `src/App.jsx`: orchestration, state, filters, and API interaction
-- `src/components/VehicleList.jsx`: inventory listing UI
-- `src/components/VehicleDetail.jsx`: detail + bid UI
-- `src/apiSchemas.js`: Zod schemas for API contracts
-- `src/utils/formatters.js`: display formatting helpers
+## Tech Stack
+
+- Backend: .NET 9, ASP.NET Core Web API, EF Core InMemory
+- Frontend: React 19, Vite 8, Zod
+- Testing:
+  - Backend: xUnit + ASP.NET Core integration testing
+  - Frontend: Vitest + Testing Library
+- Automation: GitHub Actions CI, optional Playwright local browser checks
 
 ## API
 
@@ -43,8 +40,8 @@ This implementation follows the same technical decisions used in `mattrdell/task
 - `POST /api/vehicles/{id}/bids`
 
 Bid rules:
-- New bid must be at least `max(current_bid + 100, starting_bid)`
-- If bid is at/above buy-now price, bid is capped to buy-now amount
+- Bid must be at least `max(current_bid + 100, starting_bid)`
+- If bid meets/exceeds `buy_now_price`, bid is capped to `buy_now_price`
 
 ## Local Setup
 
@@ -52,58 +49,65 @@ Bid rules:
 - .NET SDK 9+
 - Node.js 22+
 
-### 1. Install frontend packages
+### Install
 ```bash
 cd frontend
 npm install
 ```
 
-### 2. Run backend
+### Run Backend
 ```bash
 cd backend
 dotnet run --launch-profile "http"
 ```
-Backend listens on `http://localhost:5117`.
+Backend URL: `http://localhost:5117`
 
-### 3. Run frontend
+### Run Frontend
 In a second terminal:
 ```bash
 cd frontend
 npm run dev
 ```
-Frontend runs at `http://localhost:5173` and proxies `/api` to the backend.
+Frontend URL: `http://localhost:5173`
 
 ## Testing
 
 From repo root:
 ```bash
-dotnet test
+dotnet test TheBlock.sln
 ```
 
 From `frontend/`:
 ```bash
+npm run lint
 npm run test:run
+npm run build
 ```
 
-## VS Code Tasks
+## CI
 
-Open `theblock.code-workspace`, then run:
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs:
+- Backend restore + tests
+- Frontend install + lint + tests + build
+
+## VS Code Workflow
+
+Open `theblock.code-workspace` and run tasks from `.vscode/tasks.json`:
 - `Install All`
 - `Launch All`
 - `Run All Tests`
 
-## Assumptions and Tradeoffs
+## Notes And Tradeoffs
 
-- Prototype scope only, no authentication or user accounts
-- In-memory backend (data resets on restart)
-- Static synthetic dataset used as source of truth
-- Bid history persistence/audit trail intentionally omitted for timebox
+- Prototype scope only; no authentication/authorization
+- In-memory backend resets on restart
+- No persistent bid history/audit timeline yet
+- Dataset normalization handles null `current_bid` entries during seed
 
-## What I'd Improve Next
+## Next Improvements
 
-1. Add bid history timelines and outbid notifications.
-2. Add pagination/virtualization for larger inventory sets.
-3. Add backend integration tests for controller-level behavior.
-4. Add websocket updates for concurrent bidding visibility.
-5. Add auth, role-based permissions, and persistent DB.
-
+1. Persist bid history and expose timeline API.
+2. Add realtime auction updates (websockets/SSE).
+3. Add pagination/virtualized inventory rendering.
+4. Add auth and role-based access.
+5. Add observability and structured error telemetry.
