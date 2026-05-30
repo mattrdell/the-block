@@ -26,7 +26,7 @@ function VehicleList({ vehicles, selectedId, onSelect }) {
               />
               <div className="card-body">
                 <p className="card-lot">Lot {vehicle.lot}</p>
-                <h3>{vehicle.year} {vehicle.make} {vehicle.model}</h3>
+                <h2>{vehicle.year} {vehicle.make} {vehicle.model}</h2>
                 <p>{vehicle.trim} • {vehicle.city}, {vehicle.province}</p>
                 <div className="card-meta">
                   <span>{currency.format(vehicle.current_bid)}</span>

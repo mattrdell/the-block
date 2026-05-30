@@ -97,6 +97,16 @@ Responsibilities:
 - Perform local page-level smoke checks against running frontend
 - Support interactive validation when diagnosing runtime issues
 
+Recommended operating pattern:
+- Start MCP gateway with Playwright profile:
+  - `docker mcp gateway run --profile playwright`
+- Validate the app at `http://127.0.0.1:5173`.
+- Use it for post-change verification of critical UX paths:
+  - inventory load
+  - filtering
+  - bid form interaction
+  - success/error messaging
+
 ## Coordination Model
 
 - UI Agent consumes API Agent contracts.

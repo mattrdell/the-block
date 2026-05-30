@@ -81,14 +81,38 @@ From `frontend/`:
 ```bash
 npm run lint
 npm run test:run
+npm run test:ax
 npm run build
+```
+
+Playwright AX scan (requires running frontend app):
+```bash
+npm run test:ax:playwright
 ```
 
 ## CI
 
 GitHub Actions workflow (`.github/workflows/ci.yml`) runs:
 - Backend restore + tests
-- Frontend install + lint + tests + build
+- Frontend install + lint + tests (including AX vitest suite) + build
+
+## Playwright MCP Recommendations
+
+For local browser automation/debug loops, use Playwright through Docker MCP:
+
+```bash
+docker mcp gateway run --profile playwright
+```
+
+Recommended usage:
+- Keep backend and frontend running before browser checks.
+- Prefer `http://127.0.0.1:5173` over `localhost` if you see intermittent connection issues.
+- Run a smoke check after major UI changes:
+  - page loads
+  - heading renders (`The Block Buyer Console`)
+  - inventory cards are visible
+  - bid form is interactive
+- Keep Playwright as a local validation tool; CI remains lint/test/build focused.
 
 ## VS Code Workflow
 
